@@ -15,7 +15,7 @@ class App extends Component {
 	componentWillMount() {
 		store.dispatch({
 			type: actions.PERMISSIONS_CHECK_REQUEST
-		})
+		});
 	}
 
 	render() {

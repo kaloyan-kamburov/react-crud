@@ -6,13 +6,14 @@ import { shouldComponentRender } from '../../../common/helpers';
 export default class Home extends Component {
 	render() {
 		return(
-			shouldComponentRender('CREATE', this.props.permissions, 
-				<Products />
+			<Products permissions={this.props.permissions} />
+			// shouldComponentRender('CREATE', this.props.permissions, 
+			// 	<Products permissions={this.props.permissions}/>
 			
 				
-				,
+			// 	,
 			
-			<div>NOO</div>)
+			// <div>NOO</div>)
 		)
 	}
 }

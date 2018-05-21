@@ -1,0 +1,12 @@
+[
+	{
+		"name" : "TV",
+		"price" : 1000,
+		"currency" : "USD"
+	},
+	{
+		"name" : "SSD",
+		"price" : 100,
+		"currency" : "USD"
+	}
+]
