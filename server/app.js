@@ -123,8 +123,8 @@ app.delete('/deleteProduct', (req, res, next) => {
 			});
 		}
 		let dataObj = JSON.parse(data);	
-		
-		dataObj.splice(req.body.index, 1);
+		console.log(req.body)
+		dataObj.splice(req.body, 1);
 
 		fs.writeFile(db, JSON.stringify(dataObj), (error) => {
 			if (error) {
@@ -138,7 +138,7 @@ app.delete('/deleteProduct', (req, res, next) => {
 			return res.json({
 				success: true,
 				msg: 'Product deleted!',
-				index: req.body.index
+				index: req.body
 			})
 		});
 
