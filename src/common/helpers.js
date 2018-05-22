@@ -6,8 +6,9 @@
  * @param {Any} ContenInsteadOfComponent 
  */
 export function shouldComponentRender(permission, currentPermissions, Component, ContenInsteadOfComponent) {
+	
 	if (typeof permission === 'string' && currentPermissions.indexOf(permission) > -1) {		
-		return (Component);
+		return(Component);
 	}
 	return (ContenInsteadOfComponent);
 }

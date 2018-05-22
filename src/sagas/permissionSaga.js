@@ -21,6 +21,6 @@ function* permissionsCheckSaga(action) {
 	}
 }
 
-export function* watchPermissionsCheckSaga() {
+export function* watchPermissionsCheck() {
 	yield takeLatest(actions.PERMISSIONS_CHECK_REQUEST, permissionsCheckSaga)
 }
