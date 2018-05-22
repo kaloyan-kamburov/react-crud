@@ -1,12 +1,18 @@
 import { all } from 'redux-saga/effects';
 import { watchPermissionsCheck } from './permissionSaga';
-import { watchProductGetAll } from './productSaga';
+import { 
+	watchProductGetAll,
+	watchProductAdd,
+	watchProductUpdate
+} from './productSaga';
 
 
 
 export default function* rootSaga() {
 	yield all([
 		watchPermissionsCheck(),
-		watchProductGetAll()
+		watchProductGetAll(),
+		watchProductAdd(),
+		watchProductUpdate()
 	])
 }

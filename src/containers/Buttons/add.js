@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../common/constants';
 import Form from '../../components/common/Form';
+import { notEmpty } from '../../common/formValidators';
 
 class ButtonAdd extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             modalVisible: true
         }
@@ -25,21 +25,30 @@ class ButtonAdd extends Component {
                 <div style={{display: this.state.modalVisible ? 'block': 'none'}}>
                     <Form 
                         onSubmit={this.props.addProduct}
+                        serverError={this.props.serverMessages.productExists}
                         fields={[
                             {
                                 type: 'text',
                                 label: 'Name',
-                                name: 'productName'
+                                name: 'name',
+                                validators: [{
+                                    func: notEmpty,
+                                    errorMsg: 'Name field is required'
+                                }]
                             },                            
                             {
-                                type: 'nunmber',
+                                type: 'number',
                                 label: 'Price',
-                                name: 'productPrice'
+                                name: 'price',
+                                validators: [{
+                                    func: notEmpty,
+                                    errorMsg: 'This field is required'
+                                }]
                             },                            
                             {
                                 type: 'select',
                                 label: 'Currency',
-                                name: 'productCurrency',
+                                name: 'currency',
                                 options: ['USD', 'EUR', 'BGN']
                             }
                         ]}
@@ -57,9 +66,10 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-	addProduct: () => (
+	addProduct: payload => (
 		dispatch({
-			type: actions.PRODUCT_ADD_REQUEST
+            type: actions.PRODUCT_ADD_REQUEST,
+            payload
 		})
 	)
 });

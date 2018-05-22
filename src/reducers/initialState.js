@@ -1,5 +1,17 @@
 export default {
-	products: [],
+	products: {
+		currentEditableProduct: {},
+		all: []
+	},
 	permissions: [],
-	loaders: {}
+	loaders: {},
+	serverMessages: {
+		productExists: '',
+		productUpdateError: '',
+		productUpdateSuccess: ''
+	},
+	modals: {
+		edit: false,
+		delete: false
+	}
 }
