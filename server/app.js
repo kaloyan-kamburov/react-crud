@@ -115,6 +115,37 @@ app.put('/updateProduct', (req, res, next) => {
 	})
 });
 
+app.delete('/deleteProduct', (req, res, next) => {
+	fs.readFile(db, (error, data) => {
+		if (error) {
+			return res.json({
+				error
+			});
+		}
+		let dataObj = JSON.parse(data);	
+		
+		dataObj.splice(req.body.index, 1);
+
+		fs.writeFile(db, JSON.stringify(dataObj), (error) => {
+			if (error) {
+				return res.json({
+					success: false,
+					msg: 'Error occured while updating product',
+					error
+				})
+			}
+
+			return res.json({
+				success: true,
+				msg: 'Product deleted!',
+				index: req.body.index
+			})
+		});
+
+		
+	})
+});
+
 
 app.listen(port, error => {
 	if (error) {

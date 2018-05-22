@@ -1,6 +1,7 @@
 export default {
 	products: {
 		currentEditableProduct: {},
+		currentDeleteProduct: {},
 		all: []
 	},
 	permissions: [],

@@ -51,9 +51,27 @@ function* productUpdateSaga(action) {
 		}
 
 	} catch(error) {
-		yield put({ type: actions.PRODUCT_ADD_ERROR, payload: error });		
+		yield put({ type: actions.PRODUCT_UPDATE_ERROR, payload: error });		
 	}
 }
+
+function* productDeleteSaga(action) {
+	try {
+		const productDelete = yield call(() => 
+			axios.delete(constants.API_URL + 'deleteProduct', { index: action.payload })
+		);
+        
+		if (productDelete.data.success) {
+			yield put({ type: actions.PRODUCT_DELETE_SUCCESS, payload: productDelete.data });
+		} else {
+			yield put({ type: actions.PRODUCT_DELETE_ERROR, payload: productDelete.data });
+		}
+
+	} catch(error) {
+		yield put({ type: actions.PRODUCT_DELETE_ERROR, payload: error });		
+	}
+}
+
 
 //watchers
 export function* watchProductGetAll() {
@@ -66,4 +84,8 @@ export function* watchProductAdd() {
 
 export function* watchProductUpdate() {
 	yield takeLatest(actions.PRODUCT_UPDATE_REQUEST, productUpdateSaga)
+}
+
+export function* watchProductDelete() {
+	yield takeLatest(actions.PRODUCT_DELETE_REQUEST, productDeleteSaga)
 }

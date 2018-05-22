@@ -74,6 +74,23 @@ class Products extends Component {
 		return;
 	}
 
+	renderDeleteModal = () => {
+		
+		if (this.props.modals.delete) {
+			return(
+				<div className='modal-mask'>
+					<div className='modal-body'>
+						<span className='modal-close' onClick={this.props.unsetDeleteProduct}>X</span>
+						<p>Are you sure you want to delete <b>{this.props.products.currentDeleteProduct.name}</b>?</p>
+						<button onClick={() => this.props.deleteProduct(this.props.products.currentDeleteProduct.index)}>Yes</button>
+						<button onClick={this.props.unsetDeleteProduct}>No</button>
+					</div>
+				</div>
+			)
+		}
+		return;
+	}
+
 	render() {
 		
 		if (this.state.productsVisible) {
@@ -103,12 +120,19 @@ class Products extends Component {
 												<ButtonEdit index={index} />
 											, null)
 										}
+										
+										{
+											shouldComponentRender('DELETE', this.props.permissions, 
+												<ButtonDelete index={index} />
+											, null)
+										}
 									</td>
 								</tr>
 							))}
 						</tbody>
 					</table>
 					{this.renderEditModal()}
+					{this.renderDeleteModal()}
                 </div>
 			);
 		} else {
@@ -124,6 +148,11 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
+	unsetDeleteProduct: () => (
+		dispatch({
+			type: actions.PRODUCT_UNSET_DELETE
+		})
+	),
 	unsetEditProduct: () => (
 		dispatch({
 			type: actions.PRODUCT_UNSET_EDIT
@@ -132,6 +161,12 @@ const mapDispatchToProps = dispatch => ({
 	updateProduct: payload => (
 		dispatch({
 			type: actions.PRODUCT_UPDATE_REQUEST,
+			payload
+		})
+	),
+	deleteProduct: payload => (
+		dispatch({
+			type: actions.PRODUCT_DELETE_REQUEST,
 			payload
 		})
 	),

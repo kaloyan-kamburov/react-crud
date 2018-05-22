@@ -13,6 +13,19 @@ const serverErrorsReducer = (state = initialState.modals, action) => {
 				...state,
 				edit: false
 			}
+		case actions.PRODUCT_SET_DELETE:
+			return {
+				...state,
+				delete: true
+			}
+		case actions.PRODUCT_UNSET_DELETE:
+			return {
+				...state,
+				delete: false
+			}
+
+		
+		
 		default:
 			return state;
 	}
