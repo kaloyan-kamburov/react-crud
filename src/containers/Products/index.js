@@ -143,7 +143,7 @@ class Products extends Component {
 				</Grid>
 			);
 		} else {
-			return (<div>YOU DON'T HAVE PERMISSIONS TO VIEW PRODUCTS</div>);
+			return (<div>YOU DON'T HAVE PERMISSIONS TO VIEW PRODUCTS!</div>);
 		}
 	}
 }

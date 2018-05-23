@@ -12,16 +12,18 @@ export default class Form extends Component {
         let formData = props.formData || {},
             errors = {};
 
-
+        //perform actions whether the form has data to be prefilled
         if (Object.keys(formData).length) {
+            //when the form must be prefilled with data
             props.fields.forEach(field => {
                 if (field.type !== 'select') {
                     formData[field.name] = props.formData[field.name]
                 } else {
-                    formData[field.name] = field.options[this.getSelectedIndex(field)]//field.options[.indexOf(props.formData[field.name])]
+                    formData[field.name] = field.options[this.getSelectedIndex(field)]
                 }
             });
         } else {
+            //when the form is clean
             props.fields.forEach(field => {
                 if (field.type !== 'select') {
                     formData[field.name] = '';
@@ -47,6 +49,7 @@ export default class Form extends Component {
 
         let fieldErrors = [];
 
+        //field validation if neccesary
         if (typeof field.validators !== 'undefined') {
             field.validators.forEach(validator => {
                 let valid = validator.func(event.target.value);
@@ -69,26 +72,31 @@ export default class Form extends Component {
         })
     }
 
+    //show server error msg
     renderServerError = () => {
         if (this.props.serverError) {
-            return (<span>{this.props.serverError}</span>)
+            return (<span className='server-error-msg'>{this.props.serverError}</span>)
         }
     }
 
+    //show server success msg
     renderServerSuccess = () => {
         if (this.props.serverSuccess) {
-            return (<span>{this.props.serverSuccess}</span>)
+            return (<span className='server-success-msg'>{this.props.serverSuccess}</span>)
         }
     }
 
+    //get index for select dropdown
     getSelectedIndex = selectField => {
         return selectField.options.indexOf(this.props.formData[selectField.name]);
     }
 
+    //render the form field (only input and select types of fields are implemented)
     renderField = field => {
         switch (field.type) {
             case 'select':
                 if (!this.props.formData) {
+                    //render select if there is no form data to be prefilled
                     return (
                         <NativeSelect
                             name={field.name}
@@ -102,6 +110,7 @@ export default class Form extends Component {
                         </NativeSelect>
                     )
                 } else {
+                    //render select if there is form data to be prefilled
                     return (
                         <NativeSelect
                             name={field.name}
@@ -117,6 +126,7 @@ export default class Form extends Component {
 
                 }
             default:
+                //render input field
                 return (
                     <Input
                         type={field.type}
@@ -135,10 +145,12 @@ export default class Form extends Component {
         this.setState({
             formSubmitted: true
         });
+        //perform submit as a callback function to the validate function
         this.validateForm(() => this.props.onSubmit(this.state.formData));
     }
 
     componentDidMount() {
+        //initial validation of fields
         let errors = {};
         this.props.fields.forEach(field => {
             let fieldErrors = [];
@@ -159,6 +171,7 @@ export default class Form extends Component {
     }
 
     validateForm = callback => {
+        //check if all properties in the error object have 0 length (no errors)
         let formValid = Object.keys(this.state.errors).every(key => {
             return this.state.errors[key].length === 0;
         });
@@ -168,6 +181,7 @@ export default class Form extends Component {
         }
     }
 
+    //clear form data
     resetForm = () => {
         let formData = {},
             errors = {}
@@ -187,15 +201,18 @@ export default class Form extends Component {
         })
     }
 
+    //redner all errors for a field
     renderFieldErrors = field => {
         if (
             typeof this.state.errors[field.name] !== 'undefined' &&
             this.state.errors[field.name].length &&
-            this.state.formSubmitted) {
+            this.state.formSubmitted
+        ) {
             return this.state.errors[field.name].map((error, index) => (<span className='field-error' key={index}>{error}</span>))
         }
         return;
     }
+
 
     render() {
         return (

@@ -45,6 +45,12 @@ const serverErrorsReducer = (state = initialState.modals, action) => {
 				...state,
 				delete: false
 			}
+
+		case actions.SERVER_ERROR:
+			return {
+				...state,
+				serverError: true
+			}
 		
 		default:
 			return state;

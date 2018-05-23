@@ -72,9 +72,6 @@ const productsReducer = (state = initialState.products, action) => {
 				currentDeleteProduct: {},
 				all: allProducts
 			} 
-
-		case actions.PRODUCT_ADD_ERROR:
-			return state;
 		default:
 			return state;
 	}

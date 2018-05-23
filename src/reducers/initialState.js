@@ -5,7 +5,7 @@ export default {
 		all: []
 	},
 	permissions: [],
-	loaders: {},
+	
 	serverMessages: {
 		productExists: '',
 		productUpdateError: '',
@@ -14,6 +14,7 @@ export default {
 	modals: {
 		add: false,
 		edit: false,
-		delete: false
+		delete: false,
+		serverError: false
 	}
 }
