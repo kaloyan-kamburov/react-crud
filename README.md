@@ -1,8 +1,8 @@
 ## React CRUD project
 
-To run this project you have to:
+To run this project you must:
 
-1. You must have nodejs installed
-2. Through the command prompt go to root folder and type 'npm install' 
-3. Through the command promt go to 'server' folder and type 'node app.js'
-4. Through the command prompt go to root folder and type 'npm start'
+1. Have nodeJS installed
+2. Go to root folder and type 'npm install' through the command prompt
+3. Go to 'server' folder and type 'node app.js' through the command prompt
+4. Go to root folder and type 'npm start' through the command prompt
