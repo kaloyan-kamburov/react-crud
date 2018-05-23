@@ -12,6 +12,7 @@ export default {
 		productUpdateSuccess: ''
 	},
 	modals: {
+		add: false,
 		edit: false,
 		delete: false
 	}

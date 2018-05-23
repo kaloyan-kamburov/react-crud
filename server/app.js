@@ -115,7 +115,7 @@ app.put('/updateProduct', (req, res, next) => {
 	})
 });
 
-app.delete('/deleteProduct', (req, res, next) => {
+app.delete('/deleteProduct/:id', (req, res, next) => {
 	fs.readFile(db, (error, data) => {
 		if (error) {
 			return res.json({
@@ -123,14 +123,13 @@ app.delete('/deleteProduct', (req, res, next) => {
 			});
 		}
 		let dataObj = JSON.parse(data);	
-		console.log(req.body)
-		dataObj.splice(req.body, 1);
+		dataObj.splice(req.params.id, 1);
 
 		fs.writeFile(db, JSON.stringify(dataObj), (error) => {
 			if (error) {
 				return res.json({
 					success: false,
-					msg: 'Error occured while updating product',
+					msg: 'Error occured while deleting product',
 					error
 				})
 			}
@@ -138,7 +137,7 @@ app.delete('/deleteProduct', (req, res, next) => {
 			return res.json({
 				success: true,
 				msg: 'Product deleted!',
-				index: req.body
+				index: req.params.id
 			})
 		});
 

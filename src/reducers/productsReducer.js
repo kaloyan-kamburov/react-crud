@@ -2,8 +2,7 @@ import initialState from './initialState';
 import * as actions from '../common/constants';
 
 const productsReducer = (state = initialState.products, action) => {
-	let newProducts,
-		allProducts;
+	let allProducts;
 	switch (action.type) {
 		case actions.PRODUCT_GET_ALL_SUCCESS:
 			return {
@@ -11,12 +10,12 @@ const productsReducer = (state = initialState.products, action) => {
 				all: action.payload
 			}
 		case actions.PRODUCT_ADD_SUCCESS:
-			newProducts = state.all;
-			newProducts.push(action.payload.product);
+			allProducts = state.all;
+			allProducts.push(action.payload.product);
 			return {
 				...state,
 				all: [
-					...newProducts
+					...allProducts
 				]
 			}
 		case actions.PRODUCT_SET_EDIT:
@@ -45,6 +44,12 @@ const productsReducer = (state = initialState.products, action) => {
 				currentEditableProduct: {}
 			}
 		
+		case actions.PRODUCT_UNSET_DELETE:
+			return {
+				...state,
+				currentDeleteProduct: {}
+			}
+		
 		case actions.PRODUCT_UPDATE_SUCCESS:
 			allProducts = state.all;
 			allProducts[action.payload.product.index] = {
@@ -62,6 +67,7 @@ const productsReducer = (state = initialState.products, action) => {
 			allProducts.splice(action.payload.index, 1);
 			return {
 				...state,
+				currentDeleteProduct: {},
 				all: allProducts
 			} 
 

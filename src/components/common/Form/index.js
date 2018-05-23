@@ -9,11 +9,11 @@ export default class Form extends Component {
             serverError = props.serverError || '',
             errors = {};
 
-        
+
         if (Object.keys(formData).length) {
             props.fields.forEach(field => {
                 if (field.type !== 'select') {
-                    formData[field.name] = props.formData[field.name]               
+                    formData[field.name] = props.formData[field.name]
                 } else {
                     formData[field.name] = field.options[this.getSelectedIndex(field)]//field.options[.indexOf(props.formData[field.name])]
                 }
@@ -21,12 +21,11 @@ export default class Form extends Component {
         } else {
             props.fields.forEach(field => {
                 if (field.type !== 'select') {
-                    formData[field.name] = '';               
+                    formData[field.name] = '';
                 } else {
                     formData[field.name] = field.options[0]
                 }
-                errors[field.name] = []
-                // formData.errors[field.name] = {}
+                errors[field.name] = [];
             });
         }
 
@@ -44,8 +43,8 @@ export default class Form extends Component {
         event.persist();
 
         let fieldErrors = [];
-        
-        if(typeof field.validators !== 'undefined') {
+
+        if (typeof field.validators !== 'undefined') {
             field.validators.forEach(validator => {
                 let valid = validator.func(event.target.value);
                 if (!valid) {
@@ -55,6 +54,7 @@ export default class Form extends Component {
         }
 
         this.setState({
+            ...this.state,
             errors: {
                 ...this.state.errors,
                 [field.name]: fieldErrors
@@ -68,27 +68,26 @@ export default class Form extends Component {
 
     renderServerError = () => {
         if (this.props.serverError) {
-            return(<span>{this.props.serverError}</span>)
+            return (<span>{this.props.serverError}</span>)
         }
     }
 
     renderServerSuccess = () => {
         if (this.props.serverSuccess) {
-            return(<span>{this.props.serverSuccess}</span>)
+            return (<span>{this.props.serverSuccess}</span>)
         }
-
     }
-    
+
     getSelectedIndex = selectField => {
         return selectField.options.indexOf(this.props.formData[selectField.name]);
     }
 
     renderField = field => {
-        switch(field.type) {
+        switch (field.type) {
             case 'select':
                 if (!this.props.formData) {
-                    return(
-                        <select 
+                    return (
+                        <select
                             name={field.name}
                             onChange={e => this.onChange(e, field)}
                             defaultValue={field.options[0]}
@@ -97,10 +96,10 @@ export default class Form extends Component {
                                 <option key={index} value={option}>{option}</option>
                             ))}
                         </select>
-                    )                    
+                    )
                 } else {
-                    return(
-                        <select 
+                    return (
+                        <select
                             name={field.name}
                             onChange={e => this.onChange(e, field)}
                             defaultValue={field.options[this.getSelectedIndex(field)]}
@@ -113,8 +112,8 @@ export default class Form extends Component {
 
                 }
             default:
-                return(
-                    <input 
+                return (
+                    <input
                         type={field.type}
                         name={field.name}
                         onChange={e => this.onChange(e, field)}
@@ -123,12 +122,12 @@ export default class Form extends Component {
                 )
         }
     }
-    
+
     onSubmit = event => {
         event.preventDefault();
         this.setState({
             formSubmitted: true
-        })
+        });
         this.validateForm(() => this.props.onSubmit(this.state.formData));
     }
 
@@ -136,7 +135,7 @@ export default class Form extends Component {
         let errors = {};
         this.props.fields.forEach(field => {
             let fieldErrors = [];
-            if(typeof field.validators !== 'undefined') {
+            if (typeof field.validators !== 'undefined') {
                 field.validators.forEach(validator => {
                     let valid = validator.func(this.state.formData[field.name]);
                     if (!valid) {
@@ -155,14 +154,35 @@ export default class Form extends Component {
     validateForm = callback => {
         let formValid = Object.keys(this.state.errors).every(key => {
             return this.state.errors[key].length === 0;
+        });
+
+        if (formValid) {
+            callback();
+        }
+    }
+
+    resetForm = () => {
+        let formData = {},
+            errors = {}
+
+        this.props.fields.forEach(field => {
+            if (field.type !== 'select') {
+                formData[field.name] = '';
+            } else {
+                formData[field.name] = field.options[0]
+            }
+            errors[field.name] = [];
+        });
+
+        this.setState({
+            formData,
+            errors
         })
-        
-        if (formValid) callback();
-    }    
+    }
 
     renderFieldErrors = field => {
         if (
-            typeof this.state.errors[field.name] !== 'undefined' && 
+            typeof this.state.errors[field.name] !== 'undefined' &&
             this.state.errors[field.name].length &&
             this.state.formSubmitted) {
             return this.state.errors[field.name].map((error, index) => (<span key={index}>{error}</span>))
@@ -171,7 +191,7 @@ export default class Form extends Component {
     }
 
     render() {
-        return(
+        return (
             <form onSubmit={this.onSubmit}>
                 {this.renderServerError()}
                 {this.renderServerSuccess()}

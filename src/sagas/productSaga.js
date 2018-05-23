@@ -56,10 +56,9 @@ function* productUpdateSaga(action) {
 }
 
 function* productDeleteSaga(action) {
-	debugger
 	try {
 		const productDelete = yield call(() => 
-			axios.delete(constants.API_URL + 'deleteProduct', action.payload)
+			axios.delete(constants.API_URL + 'deleteProduct/' + action.payload)
 		);
         
 		if (productDelete.data.success) {
