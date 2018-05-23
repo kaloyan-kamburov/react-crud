@@ -20,6 +20,7 @@ class ButtonEdit extends Component {
 							serverError={this.props.serverMessages.productUpdateError}
 							serverSuccess={this.props.serverMessages.productUpdateSuccess}
 							formData={this.props.products.currentEditableProduct}
+							loader={this.props.loaders.productEdit}
 							fields={[
 								{
 									type: 'text',
@@ -31,8 +32,8 @@ class ButtonEdit extends Component {
                                             errorMsg: 'Name field is required'
                                         },
                                         {
-                                            func: minLength(3),
-                                            errorMsg: 'Name be at least 3 symbols long'
+                                            func: minLength(2),
+                                            errorMsg: 'Name be at least 2 symbols long'
                                         }
                                     ]
 								},

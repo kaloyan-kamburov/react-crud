@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
+import Loader from '../Loader';
+
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import NativeSelect from '@material-ui/core/NativeSelect';
@@ -217,6 +220,7 @@ export default class Form extends Component {
     render() {
         return (
             <form onSubmit={this.onSubmit}>
+				<Loader class='loader-container' visible={this.props.loader}/>
                 {this.renderServerError()}
                 {this.renderServerSuccess()}
                 {
@@ -241,5 +245,6 @@ Form.propTypes = {
     onSubmit: PropTypes.func.isRequired,
     fields: PropTypes.arrayOf(PropTypes.object).isRequired,
     resetAfterSubmit: PropTypes.bool,
-    formData: PropTypes.object
+    formData: PropTypes.object,
+    loader: PropTypes.bool
 }

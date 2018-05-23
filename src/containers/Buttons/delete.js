@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../common/constants';
 import PropTypes from 'prop-types';
+
+import Loader from '../../components/common/Loader';
+
 import Button from '@material-ui/core/Button';
 
 class ButtonDelete extends Component {
@@ -11,6 +14,7 @@ class ButtonDelete extends Component {
 			return (
 				<div className='modal-mask'>
 					<div className='modal-body'>
+						<Loader class='loader-container' visible={this.props.loaders.productDelete}/>
 						<span className='modal-close' onClick={this.props.unsetDeleteProduct}></span>
 						<p>Are you sure you want to delete <b>{this.props.products.currentDeleteProduct.name}</b>?</p>
 						<div className='buttons-wrapper'>

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../common/constants';
 import Form from '../../components/common/Form';
-import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import { notEmpty, minLength, positiveNumber } from '../../common/formValidators';
 
@@ -18,6 +17,7 @@ class ButtonAdd extends Component {
                             onSubmit={this.props.addProduct}
                             serverError={this.props.serverMessages.productExists}
                             resetAfterSubmit={true}
+                            loader={this.props.loaders.productAdd}
                             fields={[
                                 {
                                     type: 'text',
@@ -29,8 +29,8 @@ class ButtonAdd extends Component {
                                             errorMsg: 'Name field is required'
                                         },
                                         {
-                                            func: minLength(3),
-                                            errorMsg: 'Name be at least 3 symbols long'
+                                            func: minLength(2),
+                                            errorMsg: 'Name be at least 2 symbols long'
                                         }
                                     ]
                                 },
