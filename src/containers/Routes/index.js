@@ -9,8 +9,6 @@ export default class Routes extends Component {
 		return(
 			<Switch>
 				<Route exact path='/' component={Home}/>
-				{/* <Route path='/addProduct' component={}/>
-				<Route path='/editProduct/:id' component={}/> */}
 				<Route component={NotFound} />
 			</Switch>
 		)

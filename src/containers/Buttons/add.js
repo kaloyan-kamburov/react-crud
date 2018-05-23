@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../common/constants';
 import Form from '../../components/common/Form';
+import PropTypes from 'prop-types';
 import { notEmpty, minLength, positiveNumber } from '../../common/formValidators';
 
 class ButtonAdd extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     renderModal() {
         if (this.props.modals.add) {

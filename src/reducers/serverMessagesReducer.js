@@ -10,7 +10,6 @@ const resetMessages = () => {
 }
 
 const serverErrorsReducer = (state = initialState.serverMessages, action) => {
-	let newProducts;
 	switch (action.type) {
 		case actions.PRODUCT_ADD_ERROR:
 			return {

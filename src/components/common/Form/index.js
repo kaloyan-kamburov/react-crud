@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { setTimeout } from 'timers';
+import PropTypes from 'prop-types';
 
 export default class Form extends Component {
     constructor(props) {
         super(props);
 
         let formData = props.formData || {},
-            serverError = props.serverError || '',
             errors = {};
 
 
@@ -208,4 +207,11 @@ export default class Form extends Component {
             </form>
         )
     }
+}
+
+Form.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    fields: PropTypes.arrayOf(PropTypes.object).isRequired,
+    resetAfterSubmit: PropTypes.bool,
+    formData: PropTypes.object
 }

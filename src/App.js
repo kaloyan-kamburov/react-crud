@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 import { withRouter } from 'react-router-dom';
-import axios from 'axios';
 
 import Routes from './containers/Routes';
 
