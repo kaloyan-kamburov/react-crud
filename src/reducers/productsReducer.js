@@ -72,6 +72,7 @@ const productsReducer = (state = initialState.products, action) => {
 				currentDeleteProduct: {},
 				all: allProducts
 			} 
+			
 		default:
 			return state;
 	}

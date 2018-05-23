@@ -43,6 +43,7 @@ class Products extends Component {
 				<div className='modal-mask'>
 					<div className='modal-body'>
 						<span className='modal-close' onClick={this.props.unsetEditProduct}></span>
+						<h3>Edit product</h3>
 						<Form
 							onSubmit={this.props.updateProduct}
 							serverError={this.props.serverMessages.productUpdateError}
