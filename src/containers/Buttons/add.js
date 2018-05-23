@@ -6,7 +6,6 @@ import Button from '@material-ui/core/Button';
 import { notEmpty, minLength, positiveNumber } from '../../common/formValidators';
 
 class ButtonAdd extends Component {
-
     renderModal() {
         if (this.props.modals.add) {
             return(

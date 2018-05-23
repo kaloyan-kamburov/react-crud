@@ -6,7 +6,6 @@ import serverMessagesReducer from './serverMessagesReducer';
 import modalReducer from './modalReducer';
 import loaderReducer from './loaderReducer';
 
-
 export default combineReducers({
 	products: productsReducer,
 	permissions: permissionsReducer,

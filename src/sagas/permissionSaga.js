@@ -15,12 +15,12 @@ function* permissionsCheckSaga(action) {
 		} else {
 			yield put({ type: actions.PERMISSIONS_CHECK_ERROR, payload: permissions });
 		}
-
 	} catch(error) {
 		yield put({ type: actions.PERMISSIONS_CHECK_ERROR, payload: error });		
 	}
 }
 
+//action watchers
 export function* watchPermissionsCheck() {
 	yield takeLatest(actions.PERMISSIONS_CHECK_REQUEST, permissionsCheckSaga)
 }

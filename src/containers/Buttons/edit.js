@@ -6,8 +6,7 @@ import Button from '@material-ui/core/Button';
 import Form from '../../components/common/Form';
 import { notEmpty, minLength, positiveNumber } from '../../common/formValidators';
 
-class ButtonEdit extends Component {	
-
+class ButtonEdit extends Component {
 	renderModal = () => {
 		if (this.props.modals.edit && this.props.products.currentEditableProduct.index === this.props.index) {
 			return (

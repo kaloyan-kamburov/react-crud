@@ -11,10 +11,11 @@ const store = createStore(
 	rootReducer,
 	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 	applyMiddleware(sagaMiddleWare)
-)
+);
 
 sagaMiddleWare.run(rootSaga);
 
+//show server error modal in case there is server error
 axios.interceptors.response.use(
 	null, 
 	error => {

@@ -7,8 +7,7 @@ import Loader from '../../components/common/Loader';
 
 import Button from '@material-ui/core/Button';
 
-class ButtonDelete extends Component {
-		
+class ButtonDelete extends Component {		
 	renderModal = () => {
 		if (this.props.modals.delete && this.props.products.currentDeleteProduct.index === this.props.index) {
 			return (

@@ -16,7 +16,6 @@ function* productGetAllSaga(action) {
 		} else {
 			yield put({ type: actions.PRODUCT_GET_ALL_ERROR, payload: products });
 		}
-
 	} catch(error) {
 		yield put({ type: actions.PRODUCT_GET_ALL_ERROR, payload: error });		
 	}
@@ -33,7 +32,6 @@ function* productAddSaga(action) {
 		} else {
 			yield put({ type: actions.PRODUCT_ADD_ERROR, payload: productAdd.data });
 		}
-
 	} catch(error) {
 		yield put({ type: actions.PRODUCT_ADD_ERROR, payload: error });		
 	}
@@ -50,7 +48,6 @@ function* productUpdateSaga(action) {
 		} else {
 			yield put({ type: actions.PRODUCT_UPDATE_ERROR, payload: productAdd.data });
 		}
-
 	} catch(error) {
 		yield put({ type: actions.PRODUCT_UPDATE_ERROR, payload: error });		
 	}
@@ -67,7 +64,6 @@ function* productDeleteSaga(action) {
 		} else {
 			yield put({ type: actions.PRODUCT_DELETE_ERROR, payload: productDelete.data });
 		}
-
 	} catch(error) {
 		yield put({ type: actions.PRODUCT_DELETE_ERROR, payload: error });		
 	}

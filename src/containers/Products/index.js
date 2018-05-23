@@ -35,7 +35,6 @@ class Products extends Component {
 	}
 
 	render() {
-
 		if (this.state.productsVisible) {
 			return (
 				<div>
