@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import NativeSelect from '@material-ui/core/NativeSelect';
+import Button from '@material-ui/core/Button';
 
 export default class Form extends Component {
     constructor(props) {
@@ -86,35 +90,39 @@ export default class Form extends Component {
             case 'select':
                 if (!this.props.formData) {
                     return (
-                        <select
+                        <NativeSelect
                             name={field.name}
                             onChange={e => this.onChange(e, field)}
                             defaultValue={field.options[0]}
+                            fullWidth={true}
                         >
                             {field.options.map((option, index) => (
                                 <option key={index} value={option}>{option}</option>
                             ))}
-                        </select>
+                        </NativeSelect>
                     )
                 } else {
                     return (
-                        <select
+                        <NativeSelect
                             name={field.name}
                             onChange={e => this.onChange(e, field)}
                             defaultValue={field.options[this.getSelectedIndex(field)]}
+                            fullWidth={true}
                         >
                             {field.options.map((option, index) => (
                                 <option key={index} value={option}>{option}</option>
                             ))}
-                        </select>
+                        </NativeSelect>
                     )
 
                 }
             default:
                 return (
-                    <input
+                    <Input
                         type={field.type}
                         name={field.name}
+                        error={this.state.formSubmitted && this.state.errors[field.name].length > 0}
+                        fullWidth={true}
                         onChange={e => this.onChange(e, field)}
                         value={this.state.formData[field.name] || ''}
                     />
@@ -184,7 +192,7 @@ export default class Form extends Component {
             typeof this.state.errors[field.name] !== 'undefined' &&
             this.state.errors[field.name].length &&
             this.state.formSubmitted) {
-            return this.state.errors[field.name].map((error, index) => (<span key={index}>{error}</span>))
+            return this.state.errors[field.name].map((error, index) => (<span className='field-error' key={index}>{error}</span>))
         }
         return;
     }
@@ -197,13 +205,16 @@ export default class Form extends Component {
                 {
                     this.props.fields.map((field, index) => (
                         <div key={index}>
-                            <label htmlFor={field.name}>{field.label}</label>
+                            <InputLabel htmlFor={field.name}>{field.label}</InputLabel>
+                            <br/>
                             {this.renderField(field)}
                             {this.renderFieldErrors(field)}
+                            <br/><br/>
                         </div>
                     ))
                 }
-                <button type='submit'>Submit</button>
+                <br/>
+                <Button variant='raised' color='primary' type='submit'>Submit</Button>
             </form>
         )
     }

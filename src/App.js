@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 import Routes from './containers/Routes';
 
 import * as actions from './common/constants';
+import Grid from '@material-ui/core/Grid';
 import './App.css';
 
 class App extends Component {
@@ -20,9 +21,10 @@ class App extends Component {
 	render() {
 		return (
 			<Provider store={store}>
-				<div className="App">
+			
+				<Grid container justify={'center'} spacing={16} alignItems={'center'}>
 					<Routes />
-				</div>
+				</Grid>
 			</Provider>
 		);
 	}

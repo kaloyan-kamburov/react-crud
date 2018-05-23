@@ -4,6 +4,7 @@ import axios from 'axios';
 import * as actions from '../common/constants';
 import * as constants from '../common/constants';
 
+//sagas
 function* productGetAllSaga(action) {
 	try {
 		const products = yield call(() => 
@@ -72,8 +73,7 @@ function* productDeleteSaga(action) {
 	}
 }
 
-
-//watchers
+//action watchers
 export function* watchProductGetAll() {
 	yield takeLatest(actions.PRODUCT_GET_ALL_REQUEST, productGetAllSaga)
 }

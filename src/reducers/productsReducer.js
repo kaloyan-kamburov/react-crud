@@ -9,6 +9,7 @@ const productsReducer = (state = initialState.products, action) => {
 				...state,
 				all: action.payload
 			}
+			
 		case actions.PRODUCT_ADD_SUCCESS:
 			allProducts = state.all;
 			allProducts.push(action.payload.product);
@@ -18,6 +19,7 @@ const productsReducer = (state = initialState.products, action) => {
 					...allProducts
 				]
 			}
+
 		case actions.PRODUCT_SET_EDIT:
 			let currentEditableProduct = state.all[action.payload]
 			return {

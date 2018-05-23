@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../common/constants';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
 
 class ButtonDelete extends Component {	
 	render() {
 		return(
-			<button onClick={() => this.props.setDeleteProduct(this.props.index)}>Delete</button>
+			<Button variant='raised' color='secondary' onClick={() => this.props.setDeleteProduct(this.props.index)}>Delete</Button>
 		)
 	}
 }

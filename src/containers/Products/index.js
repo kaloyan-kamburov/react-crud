@@ -7,6 +7,14 @@ import ButtonEdit from '../../containers/Buttons/edit';
 import ButtonDelete from '../../containers/Buttons/delete';
 import Form from '../../components/common/Form';
 import { notEmpty } from '../../common/formValidators';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
 
 class Products extends Component {
 	constructor(props) {
@@ -16,26 +24,26 @@ class Products extends Component {
 			products: props.products,
 			productsVisible: false
 		}
-    }
-    
-    componentDidMount() {
-        this.props.getAllProducts();
-    }
+	}
+
+	componentDidMount() {
+		this.props.getAllProducts();
+	}
 
 	componentWillReceiveProps(nextProps) {
-		this.setState({		
-			products: nextProps.products,		
+		this.setState({
+			products: nextProps.products,
 			productsVisible: nextProps.permissions.indexOf('READ') > -1
 		});
 	}
 
 	renderEditModal = () => {
 		if (this.props.modals.edit) {
-			return(
+			return (
 				<div className='modal-mask'>
 					<div className='modal-body'>
-						<span className='modal-close' onClick={this.props.unsetEditProduct}>X</span>
-						<Form 
+						<span className='modal-close' onClick={this.props.unsetEditProduct}></span>
+						<Form
 							onSubmit={this.props.updateProduct}
 							serverError={this.props.serverMessages.productUpdateError}
 							serverSuccess={this.props.serverMessages.productUpdateSuccess}
@@ -49,7 +57,7 @@ class Products extends Component {
 										func: notEmpty,
 										errorMsg: 'Name field is required'
 									}]
-								},                            
+								},
 								{
 									type: 'number',
 									label: 'Price',
@@ -58,7 +66,7 @@ class Products extends Component {
 										func: notEmpty,
 										errorMsg: 'This field is required'
 									}]
-								},                            
+								},
 								{
 									type: 'select',
 									label: 'Currency',
@@ -75,15 +83,17 @@ class Products extends Component {
 	}
 
 	renderDeleteModal = () => {
-		
+
 		if (this.props.modals.delete) {
-			return(
+			return (
 				<div className='modal-mask'>
 					<div className='modal-body'>
-						<span className='modal-close' onClick={this.props.unsetDeleteProduct}>X</span>
+						<span className='modal-close' onClick={this.props.unsetDeleteProduct}></span>
 						<p>Are you sure you want to delete <b>{this.props.products.currentDeleteProduct.name}</b>?</p>
-						<button onClick={() => this.props.deleteProduct(this.props.products.currentDeleteProduct.index)}>Yes</button>
-						<button onClick={this.props.unsetDeleteProduct}>No</button>
+						<div className='buttons-wrapper'>
+							<Button variant='raised' color='secondary' onClick={() => this.props.deleteProduct(this.props.products.currentDeleteProduct.index)}>Yes</Button>
+							<Button variant='raised' onClick={this.props.unsetDeleteProduct}>No</Button>
+						</div>
 					</div>
 				</div>
 			)
@@ -92,51 +102,48 @@ class Products extends Component {
 	}
 
 	render() {
-		
+
 		if (this.state.productsVisible) {
-			return(
-                <div>
-				{shouldComponentRender('CREATE', this.props.permissions, 
-					<ButtonAdd />
-				, null)}
-					<table>
-						<thead>
-							<tr>
-								<td>Name</td>
-								<td>Price</td>
-								<td>Currency</td>
-								<td>Actions</td>
-							</tr>
-						</thead>
-						<tbody>                        
+			return (
+				<Grid>
+					<Table>
+						<TableHead>
+							<TableRow>
+								<TableCell>Name</TableCell>
+								<TableCell numeric>Price</TableCell>
+								<TableCell numeric>Currency</TableCell>
+								<TableCell numeric>Actions</TableCell>
+							</TableRow>
+						</TableHead>
+						<TableBody>
 							{this.props.products.all.map((product, index) => (
 								<tr key={index}>
-									<td>{product.name}</td>
-									<td>{product.price}</td>
-									<td>{product.currency}</td>
-									<td>
+									<TableCell>{product.name}</TableCell>
+									<TableCell numeric>{product.price}</TableCell>
+									<TableCell numeric >{product.currency}</TableCell>
+									<TableCell numeric>
 										{
-											shouldComponentRender('UPDATE', this.props.permissions, 
+											shouldComponentRender('UPDATE', this.props.permissions,
 												<ButtonEdit index={index} />
-											, null)
+												, null)
 										}
-										
+
 										{
-											shouldComponentRender('DELETE', this.props.permissions, 
+											shouldComponentRender('DELETE', this.props.permissions,
 												<ButtonDelete index={index} />
-											, null)
+												, null)
 										}
-									</td>
+									</TableCell>
 								</tr>
 							))}
-						</tbody>
-					</table>
+						</TableBody>
+					</Table>
 					{this.renderEditModal()}
 					{this.renderDeleteModal()}
-                </div>
+				</Grid>
 			);
 		} else {
-			return(<div>YOU DON'T HAVE PERMISSIONS TO VIEW PRODUCTS</div>);
+			return (<div>YOU DON'T HAVE PERMISSIONS TO VIEW PRODUCTS</div>);
 		}
 	}
 }

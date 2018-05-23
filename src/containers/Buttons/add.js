@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../common/constants';
 import Form from '../../components/common/Form';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
 import { notEmpty, minLength, positiveNumber } from '../../common/formValidators';
 
 class ButtonAdd extends Component {
@@ -12,7 +13,7 @@ class ButtonAdd extends Component {
             return(
                 <div className='modal-mask'>
                     <div className='modal-body'>
-                        <span className='modal-close' onClick={this.props.hideAddModal}>X</span>
+                        <span className='modal-close' onClick={this.props.hideAddModal}></span>
                         <Form
                             onSubmit={this.props.addProduct}
                             serverError={this.props.serverMessages.productExists}
@@ -65,7 +66,7 @@ class ButtonAdd extends Component {
     render() {
         return (
             <div>
-                <button onClick={this.props.showAddModal}>Add</button>
+                <Button variant='outlined' color='primary' onClick={this.props.showAddModal}>Add Product</Button>
                 {this.renderModal()}
             </div>
         )
