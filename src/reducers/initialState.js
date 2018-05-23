@@ -11,6 +11,10 @@ export default {
 		productUpdateError: '',
 		productUpdateSuccess: ''
 	},
+	loader: {
+		form: false,
+		
+	},
 	modals: {
 		add: false,
 		edit: false,

@@ -8,7 +8,7 @@ bpdy {
   top: 0;
   left: 0;
   z-index: 9999;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .modal-body {
@@ -33,6 +33,11 @@ bpdy {
 }
 
 .modal-body .buttons-wrapper button {
+  margin: 0 3px;
+}
+
+td .button-wrapper {
+  display: inline-block;
   margin: 0 3px;
 }
 
@@ -101,4 +106,12 @@ form input, form select {
 
 .server-success-msg {
   color: #048600;
+}
+
+form {
+  text-align: left;
+}
+
+td h3 {
+  text-align: left !important;
 }

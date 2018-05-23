@@ -29,7 +29,13 @@ const productsReducer = (state = initialState.products, action) => {
 					index: action.payload
 				}
 			}
-		
+			
+		case actions.PRODUCT_UNSET_EDIT:
+			return {
+				...state,
+				currentEditableProduct: {}
+			}
+			
 		case actions.PRODUCT_SET_DELETE:
 			let currentDeleteProduct = state.all[action.payload];
 			return {
@@ -40,11 +46,6 @@ const productsReducer = (state = initialState.products, action) => {
 				}
 			}
 		
-		case actions.PRODUCT_UNSET_EDIT:
-			return {
-				...state,
-				currentEditableProduct: {}
-			}
 		
 		case actions.PRODUCT_UNSET_DELETE:
 			return {

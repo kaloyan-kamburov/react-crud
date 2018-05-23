@@ -5,8 +5,6 @@ import { shouldComponentRender } from '../../common/helpers';
 import ButtonAdd from '../../containers/Buttons/add';
 import ButtonEdit from '../../containers/Buttons/edit';
 import ButtonDelete from '../../containers/Buttons/delete';
-import Form from '../../components/common/Form';
-import { notEmpty } from '../../common/formValidators';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -37,71 +35,6 @@ class Products extends Component {
 		});
 	}
 
-	renderEditModal = () => {
-		if (this.props.modals.edit) {
-			return (
-				<div className='modal-mask'>
-					<div className='modal-body'>
-						<span className='modal-close' onClick={this.props.unsetEditProduct}></span>
-						<h3>Edit product</h3>
-						<Form
-							onSubmit={this.props.updateProduct}
-							serverError={this.props.serverMessages.productUpdateError}
-							serverSuccess={this.props.serverMessages.productUpdateSuccess}
-							formData={this.props.products.currentEditableProduct}
-							fields={[
-								{
-									type: 'text',
-									label: 'Name',
-									name: 'name',
-									validators: [{
-										func: notEmpty,
-										errorMsg: 'Name field is required'
-									}]
-								},
-								{
-									type: 'number',
-									label: 'Price',
-									name: 'price',
-									validators: [{
-										func: notEmpty,
-										errorMsg: 'This field is required'
-									}]
-								},
-								{
-									type: 'select',
-									label: 'Currency',
-									name: 'currency',
-									options: ['USD', 'EUR', 'BGN']
-								}
-							]}
-						/>
-					</div>
-				</div>
-			)
-		}
-		return;
-	}
-
-	renderDeleteModal = () => {
-
-		if (this.props.modals.delete) {
-			return (
-				<div className='modal-mask'>
-					<div className='modal-body'>
-						<span className='modal-close' onClick={this.props.unsetDeleteProduct}></span>
-						<p>Are you sure you want to delete <b>{this.props.products.currentDeleteProduct.name}</b>?</p>
-						<div className='buttons-wrapper'>
-							<Button variant='raised' color='secondary' onClick={() => this.props.deleteProduct(this.props.products.currentDeleteProduct.index)}>Yes</Button>
-							<Button variant='raised' onClick={this.props.unsetDeleteProduct}>No</Button>
-						</div>
-					</div>
-				</div>
-			)
-		}
-		return;
-	}
-
 	render() {
 
 		if (this.state.productsVisible) {
@@ -125,8 +58,9 @@ class Products extends Component {
 									<TableCell numeric>
 										{
 											shouldComponentRender('UPDATE', this.props.permissions,
-												<ButtonEdit index={index} />
-												, null)
+												<ButtonEdit index={index} />,
+												null
+											)
 										}
 
 										{
@@ -139,8 +73,6 @@ class Products extends Component {
 							))}
 						</TableBody>
 					</Table>
-					{this.renderEditModal()}
-					{this.renderDeleteModal()}
 				</Grid>
 			);
 		} else {
@@ -155,29 +87,7 @@ const mapStateToProps = state => {
 	}
 }
 
-const mapDispatchToProps = dispatch => ({
-	unsetDeleteProduct: () => (
-		dispatch({
-			type: actions.PRODUCT_UNSET_DELETE
-		})
-	),
-	unsetEditProduct: () => (
-		dispatch({
-			type: actions.PRODUCT_UNSET_EDIT
-		})
-	),
-	updateProduct: payload => (
-		dispatch({
-			type: actions.PRODUCT_UPDATE_REQUEST,
-			payload
-		})
-	),
-	deleteProduct: payload => (
-		dispatch({
-			type: actions.PRODUCT_DELETE_REQUEST,
-			payload
-		})
-	),
+const mapDispatchToProps = dispatch => ({	
 	getAllProducts: () => (
 		dispatch({
 			type: actions.PRODUCT_GET_ALL_REQUEST

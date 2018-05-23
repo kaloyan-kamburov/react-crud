@@ -23,14 +23,15 @@ class ButtonAdd extends Component {
                                     type: 'text',
                                     label: 'Name',
                                     name: 'name',
-                                    validators: [{
-                                        func: notEmpty,
-                                        errorMsg: 'Name field is required'
-                                    },
-                                    {
-                                        func: minLength(3),
-                                        errorMsg: 'Must be at least 3 symbols long'
-                                    }
+                                    validators: [
+                                        {
+                                            func: notEmpty,
+                                            errorMsg: 'Name field is required'
+                                        },
+                                        {
+                                            func: minLength(3),
+                                            errorMsg: 'Name be at least 3 symbols long'
+                                        }
                                     ]
                                 },
                                 {
@@ -40,7 +41,7 @@ class ButtonAdd extends Component {
                                     validators: [
                                         {
                                             func: notEmpty,
-                                            errorMsg: 'This field is required'
+                                            errorMsg: 'Price is required'
                                         },
                                         {
                                             func: positiveNumber,

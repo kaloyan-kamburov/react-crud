@@ -4,10 +4,32 @@ import * as actions from '../../common/constants';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 
-class ButtonDelete extends Component {	
+class ButtonDelete extends Component {
+		
+	renderModal = () => {
+		if (this.props.modals.delete && this.props.products.currentDeleteProduct.index === this.props.index) {
+			return (
+				<div className='modal-mask'>
+					<div className='modal-body'>
+						<span className='modal-close' onClick={this.props.unsetDeleteProduct}></span>
+						<p>Are you sure you want to delete <b>{this.props.products.currentDeleteProduct.name}</b>?</p>
+						<div className='buttons-wrapper'>
+							<Button variant='raised' color='secondary' onClick={() => this.props.deleteProduct(this.props.products.currentDeleteProduct.index)}>Yes</Button>
+							<Button variant='raised' onClick={this.props.unsetDeleteProduct}>No</Button>
+						</div>
+					</div>
+				</div>
+			)
+		}
+		return;
+	}
+	
 	render() {
 		return(
-			<Button variant='raised' color='secondary' onClick={() => this.props.setDeleteProduct(this.props.index)}>Delete</Button>
+			<div className='button-wrapper'>
+				<Button variant='raised' color='secondary' onClick={() => this.props.setDeleteProduct(this.props.index)}>Delete</Button>
+				{this.renderModal()}
+			</div>
 		)
 	}
 }
@@ -28,7 +50,18 @@ const mapDispatchToProps = dispatch => ({
             type: actions.PRODUCT_SET_DELETE,
             payload
 		})
-	)
+	),
+	unsetDeleteProduct: () => (
+		dispatch({
+			type: actions.PRODUCT_UNSET_DELETE
+		})
+	),
+	deleteProduct: payload => (
+		dispatch({
+			type: actions.PRODUCT_DELETE_REQUEST,
+			payload
+		})
+	),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ButtonDelete);
