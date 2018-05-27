@@ -7,8 +7,6 @@ import {
 	watchProductDelete
 } from './productSaga';
 
-
-
 export default function* rootSaga() {
 	yield all([
 		watchPermissionsCheck(),

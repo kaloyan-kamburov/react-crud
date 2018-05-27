@@ -12,7 +12,7 @@ class Home extends Component {
 	constructor(props) {
 		super(props);
 	}
-	
+
 	render() {
 		return (
 			<Grid item xs={10}>				
@@ -28,7 +28,14 @@ class Home extends Component {
 						null
 					)
 				}
-				<Products />
+				{
+					shouldComponentRender(
+						'READ', 
+						this.props.permissions,
+						<Products />,
+						<div>YOU DON'T HAVE PERMISSIONS TO VIEW PRODUCTS!</div>
+					)
+				}
 			</Grid>
 		)
 	}

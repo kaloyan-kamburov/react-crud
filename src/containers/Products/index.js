@@ -29,61 +29,57 @@ class Products extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		this.setState({
-			products: nextProps.products,
-			productsVisible: nextProps.permissions.indexOf('READ') > -1
+			products: nextProps.products
 		});
 	}
 
 	render() {
-		if (this.state.productsVisible) {
-			return (
-				<div>
-					<Grid style={{display: this.props.products.all.length ? 'block' : 'none'}}>
-						<Table>
-							<TableHead>
-								<TableRow>
-									<TableCell>Name</TableCell>
-									<TableCell numeric>Price</TableCell>
-									<TableCell numeric>Currency</TableCell>
-									<TableCell numeric>Actions</TableCell>
-								</TableRow>
-							</TableHead>
-							<TableBody>
-								{this.props.products.all.map((product, index) => (
-									<tr key={index}>
-										<TableCell>{product.name}</TableCell>
-										<TableCell numeric>{product.price}</TableCell>
-										<TableCell numeric >{product.currency}</TableCell>
-										<TableCell numeric>
-											{
-												shouldComponentRender(
-													'UPDATE', 
-													this.props.permissions,
-													<ButtonEdit index={index} />,
-													null
-												)
-											}
+		return (
+			<div>
+				<Grid style={{ display: this.props.products.all.length ? 'block' : 'none' }}>
+					<Table>
+						<TableHead>
+							<TableRow>
+								<TableCell>Name</TableCell>
+								<TableCell numeric>Price</TableCell>
+								<TableCell numeric>Currency</TableCell>
+								<TableCell numeric>Actions</TableCell>
+							</TableRow>
+						</TableHead>
+						<TableBody>
+							{this.props.products.all.map((product, index) => (
+								<tr key={index}>
+									<TableCell>{product.name}</TableCell>
+									<TableCell numeric>{product.price}</TableCell>
+									<TableCell numeric >{product.currency}</TableCell>
+									<TableCell numeric>
+										{
+											shouldComponentRender(
+												'UPDATE',
+												this.props.permissions,
+												<ButtonEdit index={index} />,
+												null
+											)
+										}
 
-											{
-												shouldComponentRender(
-													'DELETE', 
-													this.props.permissions,
-													<ButtonDelete index={index} />
-													, null)
-											}
-										</TableCell>
-									</tr>
-								))}
-							</TableBody>
-						</Table>
-					</Grid>
-				
-				<h4 style={{display: !this.props.products.all.length ? 'block' : 'none'}}>There are no products</h4>
-				</div>
-			);
-		} else {
-			return (<div>YOU DON'T HAVE PERMISSIONS TO VIEW PRODUCTS!</div>);
-		}
+										{
+											shouldComponentRender(
+												'DELETE',
+												this.props.permissions,
+												<ButtonDelete index={index} />
+												, null)
+										}
+									</TableCell>
+								</tr>
+							))}
+						</TableBody>
+					</Table>
+				</Grid>
+
+				<h4 style={{ display: !this.props.products.all.length ? 'block' : 'none' }}>There are no products</h4>
+			</div>
+		);
+
 	}
 }
 
@@ -93,7 +89,7 @@ const mapStateToProps = state => {
 	}
 }
 
-const mapDispatchToProps = dispatch => ({	
+const mapDispatchToProps = dispatch => ({
 	getAllProducts: () => (
 		dispatch({
 			type: actions.PRODUCT_GET_ALL_REQUEST
